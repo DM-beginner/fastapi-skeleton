@@ -4,11 +4,11 @@ from fastapi.exceptions import RequestValidationError
 from loguru import logger
 import traceback
 
-from core.settings import settings
+from core.config import settings
 
-
-async def http_exception_handler(request: Request, exc: HTTPException):
+async def http_exception_handler(request: Request, exc: HTTPException) -> JSONResponse:
     """处理 FastAPI 的 HTTPException"""
+
     logger.warning(
         f"HTTPException: {exc.status_code} - {exc.detail} | "
         f"Path: {request.method} {request.url.path}"
@@ -25,7 +25,9 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     )
 
 
-async def validation_exception_handler(request: Request, exc: RequestValidationError):
+async def validation_exception_handler(
+    request: Request, exc: RequestValidationError
+) -> JSONResponse:
     """处理请求参数验证错误（Pydantic）"""
     errors = exc.errors()
     logger.warning(
@@ -51,7 +53,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     )
 
 
-async def general_exception_handler(request: Request, exc: Exception):
+async def general_exception_handler(request: Request, exc: Exception) -> JSONResponse:
     """处理所有未捕获的异常"""
     # 记录完整的堆栈信息
     logger.error(

@@ -1,8 +1,8 @@
-from typing import Annotated
+from typing import Annotated, TypeAlias
 from fastapi import Depends
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from core.settings import settings
+from core.config import settings
 
 
 engine = create_async_engine(
@@ -37,7 +37,8 @@ async def get_db():
             await session.close()
 
 
-SessionDep = Annotated[AsyncSession, Depends(get_db)]
+# 显示声明TypeAlias类型别名，不然IDE以为是普通变量会检查报错
+SessionDep: TypeAlias = Annotated[AsyncSession, Depends(get_db)]
 
 
 async def warm_up():

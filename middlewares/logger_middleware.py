@@ -1,12 +1,12 @@
 import time
-import uuid
+import uuid6
 from fastapi import Request
 from loguru import logger
 
 
 async def log_requests_middleware(request: Request, call_next):
     # 1. 生成唯一的 Request ID
-    request_id = str(uuid.uuid4())
+    request_id = str(uuid6.uuid7())
 
     # 2. 将 request_id 绑定到当前的上下文 context
     # 之后所有的 logger.info() 都会自动带上这个 request_id
