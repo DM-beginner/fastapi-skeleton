@@ -1,0 +1,22 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # 请定期更新 rev 版本
+    rev: v0.14.13
+    hooks:
+      - id: ruff-check
+        args: [ --fix ]
+        types_or: [ python, pyi ]
+      # Run the formatter (相当于 ruff format)
+      - id: ruff-format
+        types_or: [ python, pyi ]
+
+  # 3. (可选) 常规检查
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=2048']

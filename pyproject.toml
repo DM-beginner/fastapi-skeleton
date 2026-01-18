@@ -1,3 +1,17 @@
+[tool.ruff]
+src = ["backend"]
+target-version = "py313"
+
+[tool.ruff.lint]
+# E: 错误, F: 逻辑缺陷, I: 排序, B: 避坑, UP: 语法升级
+select = ["E", "F", "I", "B", "D", "UP"]
+ignore = []
+
+[tool.ruff.lint.isort]
+extend-select = ["E501"]
+# 告诉 Ruff，backend 是你自己的模块，不要把它当成第三方库
+known-first-party = ["backend"]
+
 [project]
 name = "fastapi-cli"
 version = "0.1.0"
@@ -18,4 +32,9 @@ dependencies = [
     "sqlalchemy>=2.0.45",
     "uuid6>=2025.0.1",
     "uvicorn>=0.38.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.13",
 ]
